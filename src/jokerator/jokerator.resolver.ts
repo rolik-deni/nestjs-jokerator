@@ -1,12 +1,11 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
 
-import { JokeratorService } from '../jokerator.service'
-
-import { CategoryInput } from './inputs/category.input'
-import { JokeType } from './types/joke.type'
+import { CategoryInput } from './graphql/inputs/category.input'
+import { JokeType } from './graphql/types/joke.type'
+import { JokeratorService } from './jokerator.service'
 
 @Resolver()
-export class JokeResolver {
+export class JokeratorResolver {
     constructor(private readonly _jokeratorService: JokeratorService) {}
 
     @Query(() => JokeType, {

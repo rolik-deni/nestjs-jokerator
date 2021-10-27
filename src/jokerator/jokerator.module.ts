@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 
-import { JokeResolver } from './graphql/joke.resolver'
+import { JokeratorResolver } from './jokerator.resolver'
 import { JokeratorService } from './jokerator.service'
 
 @Module({
-    providers: [JokeratorService, JokeResolver],
+    providers: [JokeratorService, JokeratorResolver],
 })
 export class JokeratorModule {}
