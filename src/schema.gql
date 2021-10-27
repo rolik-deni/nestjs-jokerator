@@ -1,0 +1,53 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Flags {
+  nsfw: Boolean!
+  religious: Boolean!
+  political: Boolean!
+  racist: Boolean!
+  sexist: Boolean!
+  explicit: Boolean!
+}
+
+type Joke {
+  error: Boolean!
+  category: CategoryEnum!
+  type: TypeEnum!
+  joke: String
+  setup: String
+  delivery: String
+  flags: Flags!
+  id: ID!
+  safe: Boolean!
+  lang: String!
+}
+
+enum CategoryEnum {
+  Any
+  Programming
+  Misc
+  Dark
+  Pun
+  Spooky
+  Christmas
+  Miscellaneous
+  Coding
+  Development
+  Halloween
+}
+
+enum TypeEnum {
+  Single
+  Twopart
+}
+
+type Query {
+  """Get a joke"""
+  parse(input: CategoryInput): Joke!
+}
+
+input CategoryInput {
+  categories: [CategoryEnum!] = Any
+}
