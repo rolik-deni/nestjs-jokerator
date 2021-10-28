@@ -21,7 +21,7 @@ export class JokeratorService {
         categories: CategoryEnum[] | CategoryEnum.Any,
     ): AxiosRequestConfig {
         return {
-            url: [categories].join(',') + '404',
+            url: [categories].join(','),
             method: 'get',
             baseURL: 'https://v2.jokeapi.dev/joke/',
         }
