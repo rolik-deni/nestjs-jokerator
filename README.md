@@ -1,33 +1,19 @@
-# NestJS boilerplate application
-
-## Branches
-- [master](https://github.com/i-link-pro-team/nestjs-boilerplate/tree/master): Only NestJS
-- **[typeorm+postgres](https://github.com/i-link-pro-team/nestjs-boilerplate/tree/typeorm+postgres): NestJS + PostgreSQL + TypeORM**
-- [mongoose+mongo](https://github.com/i-link-pro-team/nestjs-boilerplate/tree/mongoose+mongo): NestJS + MongoDB + Mongoose
-
-## Features
-* Node v14.17.1
-* [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/)
-* ESLint
-* Launch scripts (prebuild, build, start, test, etc.)
-* Precommit prettier
-* VSCode debug launcher
-* Strict ruled tsconfig.json
-* Migrations
-* Docker compose with postgres
+# NestJS jokerator
 
 ## Installation
 
 ```bash
+# install dependencies
 $ npm install
+
+# generate keys
+$ ssh-keygen -t rsa -b 4096 -m PEM -f ./src/auth/jwt/private.key
+$ openssl rsa -in ./src/auth/jwt/private.key -pubout -outform PEM -out ./src/auth/jwt/public.key
 ```
 
 ## Running the app
 
 ```bash
-# if your default nodeJS version is not v14.17.1
-$ nvm use 
-
 # development
 $ npm run start
 
@@ -38,15 +24,41 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## GgraphQL query examples
 
-```bash
-# unit tests
-$ npm run test
+```gql
+# Registration
+mutation signUp {
+  signUp(input: { email: "mr.green@mail.com", password: "strong" }) {
+    id
+    email
+  }
+}
 
-# e2e tests
-$ npm run test:e2e
+# Authorization
+query signIn {
+  signIn(input: { email: "mr.green@mail.com", password: "strong" }) {
+    access_token
+  }
+}
 
-# test coverage
-$ npm run test:cov
+# Get a joke (access token required)
+query parse {
+  parse(input: { categories: [Programming, Dark] }) {
+    category
+    type
+    joke
+    setup
+    delivery
+  }
+}
 ```
+
+## HTTP headers example
+
+```json
+{
+  "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1yLmdyZWVuQG1haWwuY29tIiwic3ViIjoxLCJpYXQiOjE2MzU0NTg1MDYsImV4cCI6MTYzNTQ1ODU2Nn0.fEoxCPUn5b3aHQ0_WYcYArPMOtjRC1wLvtnf-XkUy0s"
+}
+```
+
