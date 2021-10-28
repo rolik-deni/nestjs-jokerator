@@ -2,40 +2,61 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Flags {
-  nsfw: Boolean!
-  religious: Boolean!
-  political: Boolean!
-  racist: Boolean!
-  sexist: Boolean!
-  explicit: Boolean!
-}
-
-type Joke {
-  error: Boolean!
-  category: CategoryEnum!
-  type: TypeEnum!
-  joke: String
-  setup: String
-  delivery: String
-  flags: Flags!
-  id: ID!
-  safe: Boolean!
-  lang: String!
+type Auth {
+  access_token: String!
 }
 
 enum CategoryEnum {
   Any
-  Programming
-  Misc
-  Dark
-  Pun
-  Spooky
   Christmas
-  Miscellaneous
   Coding
+  Dark
   Development
   Halloween
+  Misc
+  Miscellaneous
+  Programming
+  Pun
+  Spooky
+}
+
+input CategoryInput {
+  categories: [CategoryEnum!] = Any
+}
+
+type Flags {
+  explicit: Boolean!
+  nsfw: Boolean!
+  political: Boolean!
+  racist: Boolean!
+  religious: Boolean!
+  sexist: Boolean!
+}
+
+type Joke {
+  category: CategoryEnum!
+  delivery: String
+  error: Boolean!
+  flags: Flags!
+  id: ID!
+  joke: String
+  lang: String!
+  safe: Boolean!
+  setup: String
+  type: TypeEnum!
+}
+
+type Mutation {
+  """Registration"""
+  signUp(input: UserInput!): User!
+}
+
+type Query {
+  """Get a joke (access token required)"""
+  parse(input: CategoryInput): Joke!
+
+  """Authorization"""
+  signIn(input: UserInput!): Auth!
 }
 
 enum TypeEnum {
@@ -43,11 +64,12 @@ enum TypeEnum {
   Twopart
 }
 
-type Query {
-  """Get a joke"""
-  parse(input: CategoryInput): Joke!
+type User {
+  email: String!
+  id: ID!
 }
 
-input CategoryInput {
-  categories: [CategoryEnum!] = Any
+input UserInput {
+  email: String!
+  password: String!
 }
