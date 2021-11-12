@@ -15,7 +15,7 @@ export class JokeratorResolver {
     @Query(() => JokeType, {
         description: 'Get a joke (access token required)',
     })
-    async parse(
+    async getJoke(
         @Args('input', { type: () => CategoryInput, nullable: true })
         categories: CategoryInput,
     ): Promise<JokeType> {

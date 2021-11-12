@@ -56,7 +56,7 @@ type Mutation {
 
 type Query {
   """Get a joke (access token required)"""
-  parse(input: CategoryInput): Joke!
+  getJoke(input: CategoryInput): Joke!
 
   """Authorization"""
   signIn(input: UserInput!): Auth!
