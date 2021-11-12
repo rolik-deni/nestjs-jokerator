@@ -17,7 +17,7 @@ export class JokeratorService {
      * @param categories - list of categories to be searched for
      * @returns AxiosRequestConfig
      */
-    protected generateRequest(
+    private _generateRequest(
         categories: CategoryEnum[] | CategoryEnum.Any,
     ): AxiosRequestConfig {
         return {
@@ -34,7 +34,7 @@ export class JokeratorService {
      */
     async parse(input: CategoryInput): Promise<JokeType> {
         const { data } = await axios.request<JokeType | ApiError>(
-            this.generateRequest(input.categories),
+            this._generateRequest(input.categories),
         )
 
         if (data.error) {
