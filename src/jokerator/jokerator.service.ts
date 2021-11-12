@@ -13,21 +13,6 @@ import ApiError from './interfaces/api-error.interface'
 @Injectable()
 export class JokeratorService {
     /**
-     * Сreate an api request
-     * @param categories - list of categories to be searched for
-     * @returns AxiosRequestConfig
-     */
-    private _generateRequest(
-        categories: CategoryEnum[] | CategoryEnum.Any,
-    ): AxiosRequestConfig {
-        return {
-            url: [categories].join(','),
-            method: 'get',
-            baseURL: 'https://v2.jokeapi.dev/joke/',
-        }
-    }
-
-    /**
      * Execute a request to the api
      * @param input
      * @returns Promise<JokeType>
@@ -43,5 +28,20 @@ export class JokeratorService {
             })
         }
         return data
+    }
+
+    /**
+     * Сreate an api request
+     * @param categories - list of categories to be searched for
+     * @returns AxiosRequestConfig
+     */
+    private _generateRequest(
+        categories: CategoryEnum[] | CategoryEnum.Any,
+    ): AxiosRequestConfig {
+        return {
+            url: [categories].join(','),
+            method: 'get',
+            baseURL: 'https://v2.jokeapi.dev/joke/',
+        }
     }
 }

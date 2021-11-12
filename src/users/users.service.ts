@@ -31,14 +31,6 @@ export class UsersService {
         return await this._usersRepository.save(newUser)
     }
 
-    protected async hashPassword(password: string): Promise<string> {
-        const ROUNDS = 12
-        const salt = await genSalt(ROUNDS)
-        const hashedPassword = await hash(password, salt)
-
-        return hashedPassword
-    }
-
     async findOne(email: string): Promise<User> {
         const user = await this._usersRepository.findOne({
             email,
@@ -49,5 +41,13 @@ export class UsersService {
         }
 
         return user
+    }
+
+    protected async hashPassword(password: string): Promise<string> {
+        const ROUNDS = 12
+        const salt = await genSalt(ROUNDS)
+        const hashedPassword = await hash(password, salt)
+
+        return hashedPassword
     }
 }
