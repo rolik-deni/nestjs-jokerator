@@ -4,6 +4,7 @@
 
 type Auth {
   accessToken: String!
+  refreshToken: String!
 }
 
 enum CategoryEnum {
