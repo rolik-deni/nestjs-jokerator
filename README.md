@@ -38,7 +38,7 @@ mutation signUp {
 # Authorization
 query signIn {
   signIn(input: { email: "mr.green@mail.com", password: "strong" }) {
-    access_token
+    accessToken
   }
 }
 

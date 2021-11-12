@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Auth {
-  access_token: String!
+  accessToken: String!
 }
 
 enum CategoryEnum {
@@ -47,6 +47,8 @@ type Joke {
 }
 
 type Mutation {
+  refreshToken(accessToken: String!, refreshToken: String!): Auth!
+
   """Registration"""
   signUp(input: UserInput!): User!
 }
