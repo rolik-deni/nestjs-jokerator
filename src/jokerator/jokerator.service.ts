@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common'
 import { ApolloError } from 'apollo-server-errors'
 import axios, { AxiosRequestConfig } from 'axios'
 
-import { CategoryEnum } from './graphql/enums/category.enum'
-import { CategoryInput } from './graphql/inputs/category.input'
-import { JokeType } from './graphql/types/joke.type'
+import { CategoryDto } from './dtos/category.dto'
+import { CategoryEnum } from './enums/category.enum'
 import ApiError from './interfaces/api-error.interface'
+import { JokeType } from './interfaces/joke.interface'
 
 /**
  * Parses jokes from https://v2.jokeapi.dev/
@@ -17,7 +17,7 @@ export class JokeratorService {
      * @param input
      * @returns Promise<JokeType>
      */
-    async parse(input: CategoryInput): Promise<JokeType> {
+    async parse(input: CategoryDto): Promise<JokeType> {
         const { data } = await axios.request<JokeType | ApiError>(
             this._generateRequest(input.categories),
         )
