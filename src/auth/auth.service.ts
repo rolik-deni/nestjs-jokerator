@@ -9,12 +9,12 @@ import * as moment from 'moment'
 import { Repository } from 'typeorm'
 
 import { RefreshTokenEntity } from 'src/auth/entities/refresh-token.entity'
-import { AuthType } from 'src/auth/graphql/types/auth.type'
 import { UserDto } from 'src/users/dtos/user.dto'
 import { User } from 'src/users/entities/user.entity'
 
 import { UsersService } from '../users/users.service'
 
+import { Auth } from './interfaces/auth.interface'
 import { JwtPayload } from './interfaces/jwtpayload.interface'
 
 @Injectable()
@@ -48,7 +48,7 @@ export class AuthService {
         return user
     }
 
-    async signIn(input: UserDto): Promise<AuthType> {
+    async signIn(input: UserDto): Promise<Auth> {
         const user = await this.validateUser(input)
 
         const payload = { email: user.email, sub: user.id.toString() }
@@ -76,7 +76,7 @@ export class AuthService {
     async getAccessTokenFromRefreshToken(
         refreshToken: string,
         oldAccessToken: string,
-    ): Promise<AuthType> {
+    ): Promise<Auth> {
         const token = await this._refreshTokenRepository.findOne({
             token: refreshToken,
         })
