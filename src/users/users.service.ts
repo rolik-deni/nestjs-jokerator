@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { genSalt, hash } from 'bcryptjs'
 import { Repository } from 'typeorm'
 
-import { UserInput } from './dto/user.input'
+import { UserDto } from './dtos/user.dto'
 import { User } from './entities/user.entity'
-import { UserType } from './graphql/types/user.type'
+import { UserInsensitive } from './interfaces/user.interface'
 
 @Injectable()
 export class UsersService {
@@ -14,7 +14,7 @@ export class UsersService {
         private readonly _usersRepository: Repository<User>,
     ) {}
 
-    async create(input: UserInput): Promise<UserType> {
+    async create(input: UserDto): Promise<UserInsensitive> {
         const { email, password } = input
 
         const existUser = await this._usersRepository.findOne({ email })

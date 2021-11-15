@@ -10,7 +10,7 @@ import { Repository } from 'typeorm'
 
 import { RefreshTokenEntity } from 'src/auth/entities/refresh-token.entity'
 import { AuthType } from 'src/auth/graphql/types/auth.type'
-import { UserInput } from 'src/users/dto/user.input'
+import { UserDto } from 'src/users/dtos/user.dto'
 import { User } from 'src/users/entities/user.entity'
 
 import { UsersService } from '../users/users.service'
@@ -34,7 +34,7 @@ export class AuthService {
         )
     }
 
-    async validateUser(input: UserInput): Promise<User> {
+    async validateUser(input: UserDto): Promise<User> {
         const { email, password } = input
 
         const user = await this._usersService.findOne(email)
@@ -48,7 +48,7 @@ export class AuthService {
         return user
     }
 
-    async signIn(input: UserInput): Promise<AuthType> {
+    async signIn(input: UserDto): Promise<AuthType> {
         const user = await this.validateUser(input)
 
         const payload = { email: user.email, sub: user.id.toString() }

@@ -1,8 +1,8 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 
 import { AuthType } from 'src/auth/graphql/types/auth.type'
-import { UserInput } from 'src/users/dto/user.input'
-import { UserType } from 'src/users/graphql/types/user.type'
+import { UserInput } from 'src/users/graphql/inputs/user.input'
+import { UserInsensitiveType } from 'src/users/graphql/types/user.type'
 import { UsersService } from 'src/users/users.service'
 
 import { AuthService } from './auth.service'
@@ -30,8 +30,13 @@ export class AuthResolver {
         )
     }
 
-    @Mutation(() => UserType, { name: 'signUp', description: 'Registration' })
-    async createUser(@Args('input') input: UserInput): Promise<UserType> {
+    @Mutation(() => UserInsensitiveType, {
+        name: 'signUp',
+        description: 'Registration',
+    })
+    async createUser(
+        @Args('input') input: UserInput,
+    ): Promise<UserInsensitiveType> {
         return await this._usersService.create(input)
     }
 }
